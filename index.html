@@ -106,14 +106,6 @@
     <div class="filters" id="filters" role="tablist" aria-label="Gallery categories"></div>
 
     <div class="masonry" id="masonry"></div>
-
-    <div class="gallery-outro">
-      <a href="https://www.apesconsole.com" target="_blank" rel="noopener noreferrer" class="outro-link">
-        <span class="outro-label">More work at</span>
-        <span class="outro-url">www.apesconsole.com</span>
-        <span class="outro-arrow" aria-hidden="true">&#8599;</span>
-      </a>
-    </div>
   </section>
 
   <!-- ===== Lightbox ===== -->
@@ -138,6 +130,35 @@
 
     <button class="lb-nav lb-next" id="lbNext" aria-label="Next">&#8250;</button>
   </div>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <a href="https://www.apesconsole.com" target="_blank" rel="noopener noreferrer" class="outro-link">
+      <span class="outro-label">More work at</span>
+      <span class="outro-url">www.apesconsole.com</span>
+      <span class="outro-arrow" aria-hidden="true">&#8599;</span>
+    </a>
+
+    <div class="dev-menu">
+      <button type="button" class="dev-toggle" id="devToggle"
+              aria-expanded="false" aria-haspopup="true" aria-controls="devPop">
+        <span>Developer</span>
+        <span class="dev-caret" aria-hidden="true">&#9662;</span>
+      </button>
+
+      <div class="dev-pop" id="devPop" role="group" aria-label="Developer resources">
+        <p class="dev-pop-head">Build prompt</p>
+        <a class="prompt-dl" href="PROMPT.md" download="an-evening-to-remember-build-prompt.md">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 17v2.5A1.5 1.5 0 005.5 21h13a1.5 1.5 0 001.5-1.5V17" />
+          </svg>
+          <span>Download the build prompt</span>
+        </a>
+        <p class="dev-pop-note">The complete brief this site was built from &mdash; markdown.</p>
+      </div>
+    </div>
+  </footer>
 
   <script src="analysis.js"></script>
   <script src="app.js"></script>

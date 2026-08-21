@@ -319,13 +319,7 @@ img { display: block; max-width: 100%; }
 }
 .tile:hover .tile-num { opacity: .9; transform: none; }
 
-/* ---------- Gallery outro link ---------- */
-.gallery-outro {
-  margin-top: clamp(56px, 8vw, 96px);
-  border-top: 1px solid var(--line);
-  padding-top: 34px;
-  display: flex; justify-content: center;
-}
+/* ---------- "More work at" link (lives in the footer) ---------- */
 .outro-link {
   display: inline-flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
   justify-content: center; text-align: center;
@@ -532,6 +526,72 @@ img { display: block; max-width: 100%; }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
   .tile { opacity: 1; transform: none; }
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+  padding: 26px 28px;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 16px;
+}
+
+/* Developer menu — a small popover holding developer-facing links */
+.dev-menu { position: relative; }
+.dev-toggle {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--mono); font-size: .8rem; letter-spacing: .06em;
+  color: var(--muted); background: transparent; cursor: pointer;
+  padding: 11px 18px; border: 1px solid var(--line-2); border-radius: 0;
+  transition: color .3s var(--ease), border-color .3s var(--ease), background .3s var(--ease);
+}
+.dev-toggle:hover,
+.dev-toggle[aria-expanded="true"] { color: var(--text); border-color: #b476f0; background: rgba(168,85,247,.12); }
+.dev-caret { font-size: .7rem; transition: transform .3s var(--ease); }
+.dev-toggle[aria-expanded="true"] .dev-caret { transform: rotate(180deg); }
+
+/* opens upward — the footer is the last thing on the page */
+.dev-pop {
+  position: absolute; right: 0; bottom: calc(100% + 10px); z-index: 110;
+  width: 318px; padding: 18px;
+  background: var(--bg-2); border: 1px solid var(--line-2);
+  box-shadow: 0 22px 50px rgba(0,0,0,.55);
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  /* visibility is switched with a delay rather than interpolated: instant on
+     open, held until the fade-out finishes on close. Transitioning visibility
+     itself is unreliable. Keeping it (rather than opacity alone) is what takes
+     the closed menu out of the keyboard tab order. */
+  transition: opacity .28s var(--ease), transform .28s var(--ease),
+              visibility 0s linear .28s;
+}
+.dev-pop.open {
+  opacity: 1; visibility: visible; transform: none;
+  transition: opacity .28s var(--ease), transform .28s var(--ease),
+              visibility 0s linear 0s;
+}
+.dev-pop-head {
+  font-family: var(--mono); font-size: .66rem; letter-spacing: .22em;
+  text-transform: uppercase; color: #b476f0; margin-bottom: 12px;
+}
+.dev-pop-note {
+  font-size: .74rem; line-height: 1.55; color: var(--faint); margin-top: 11px;
+}
+.prompt-dl {
+  display: inline-flex; align-items: center; gap: 10px; width: 100%;
+  font-family: var(--mono); font-size: .76rem; letter-spacing: .02em;
+  color: var(--text); white-space: nowrap;
+  padding: 11px 13px; border: 1px solid var(--line-2);
+  transition: border-color .3s var(--ease), background .3s var(--ease);
+}
+.prompt-dl:hover { border-color: transparent; background: var(--grad-soft); }
+.prompt-dl svg { flex: none; color: #b476f0; }
+
+@media (max-width: 640px) {
+  .site-footer { padding: 20px; justify-content: center; gap: 14px; }
+  .dev-menu { width: 100%; display: flex; justify-content: center; }
+  .dev-pop { right: 50%; transform: translate(50%, 8px); width: min(92vw, 318px); }
+  .dev-pop.open { transform: translate(50%, 0); }
 }
 
 /* ============================================================

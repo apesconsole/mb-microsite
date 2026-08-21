@@ -409,6 +409,35 @@ navMobile.querySelectorAll("a").forEach((a) =>
   })
 );
 
+/* ---------- Developer menu (footer) ---------- */
+(function () {
+  const toggle = document.getElementById("devToggle");
+  const pop = document.getElementById("devPop");
+  if (!toggle || !pop) return;
+
+  function setOpen(open) {
+    pop.classList.toggle("open", open);
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+
+  toggle.addEventListener("click", function (e) {
+    e.stopPropagation();
+    setOpen(toggle.getAttribute("aria-expanded") !== "true");
+  });
+
+  /* clicking the download link should not slam the menu shut before
+     the browser has taken the click */
+  pop.addEventListener("click", function (e) { e.stopPropagation(); });
+
+  document.addEventListener("click", function () { setOpen(false); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+})();
+
 /* ---------- Init ---------- */
 renderFilters();
 renderGallery();
