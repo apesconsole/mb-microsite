@@ -15,37 +15,6 @@ const ASSET = "images";
 const SET_NAME = "An Evening to Remember";   // shown in captions / alt text
 const SET_SLUG = "An-Evening-to-Remember";   // used to name downloaded files
 
-/* The icons at the foot of the analysis panel open each platform itself, so
-   the visitor lands in their own account rather than on someone else's
-   profile. Email opens whatever mail client they have set as default.
-   Edit the urls here and nowhere else. `icon` is an SVG path set at 24x24. */
-const SOCIAL = [
-  {
-    name: "Instagram",
-    label: "Open Instagram",
-    url: "https://www.instagram.com",
-    icon: '<rect x="3" y="3" width="18" height="18" rx="5" />' +
-          '<circle cx="12" cy="12" r="4" />' +
-          '<circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" />',
-  },
-  {
-    name: "Facebook",
-    label: "Open Facebook",
-    url: "https://www.facebook.com",
-    icon: '<path d="M14.5 8.5h2.2V5.6h-2.4c-2.2 0-3.6 1.4-3.6 3.6v1.6H8.6v2.9h2.1V21h3v-7.3h2.2l.4-2.9h-2.6V9.6c0-.7.3-1.1.8-1.1z" ' +
-          'fill="currentColor" stroke="none" />',
-  },
-  {
-    name: "Email",
-    label: "Open your email app",
-    /* no address: a bare mailto: opens the visitor's own mail client on a
-       blank message, which is the email equivalent of the two links above */
-    url: "mailto:",
-    icon: '<rect x="3" y="5" width="18" height="14" rx="2" />' +
-          '<path d="M3.5 7l8.5 6 8.5-6" />',
-  },
-];
-
 /* One entry per folder under ./images/ — label is what the tab shows,
    dir is the folder on disk, files are its frames in display order. */
 const GALLERY = [
@@ -278,26 +247,6 @@ const lbCaption  = document.getElementById("lbCaption");
 const lbDownload = document.getElementById("lbDownload");
 const lbPanel    = document.getElementById("lbPanel");
 const lbPanelBody = document.getElementById("lbPanelBody");
-const lbSocial   = document.getElementById("lbSocial");
-
-/* The social row is static — build it once. External profiles open in a new
-   tab; the mailto must not, or it leaves a blank tab behind. */
-(function () {
-  if (!lbSocial) return;
-  lbSocial.innerHTML = SOCIAL.map(function (s) {
-    const external = s.url.indexOf("mailto:") !== 0;
-    return '<a class="lbp-soc" href="' + s.url + '"' +
-      (external ? ' target="_blank" rel="noopener noreferrer"' : "") +
-      ' aria-label="' + s.label + '" title="' + s.label + '">' +
-      '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" ' +
-      'stroke="currentColor" stroke-width="1.7" stroke-linecap="round" ' +
-      'stroke-linejoin="round" aria-hidden="true">' + s.icon + "</svg></a>";
-  }).join("");
-
-  /* clicks here must not reach the backdrop, which would close the lightbox
-     out from under the visitor as they leave */
-  lbSocial.addEventListener("click", function (e) { e.stopPropagation(); });
-})();
 
 function openLightbox(idx) {
   currentIndex = idx;

@@ -233,23 +233,12 @@ a flex column, give the body `flex: 1 1 auto; min-height: 0; overflow-y: auto`
 and the foot `flex: none`. The reading scrolls; the foot never does. Reset the
 *body's* scrollTop on each frame — the panel itself no longer scrolls.
 
-The foot holds, above a hairline rule:
+Above a hairline rule, the foot holds one thing: a full-width
+**Download this photo** button (see below). Keep it to that — no social or
+sharing links.
 
-- a full-width **Download this photo** button (see below), then
-- a row of three equal icon links — **Instagram**, **Facebook**, **email** —
-  driven by a single `SOCIAL` array of `{name, label, url, icon}` at the top of
-  `app.js` so the URLs live in exactly one place. Each lights up in its own
-  colour on hover.
-
-  These point at the **platforms themselves** (`https://www.instagram.com`,
-  `https://www.facebook.com`, and a bare `mailto:`), not at any studio profile
-  — the visitor should land in their own account, or in their own mail client.
-  The two web links get `target="_blank"` + `rel="noopener noreferrer"`; the
-  `mailto:` must **not**, or it strands the visitor on a blank tab. Stop clicks
-  in this row from reaching the backdrop.
-
-If `analysis.js` is missing, blank the body only — the download and the social
-links still belong there, so the panel itself stays.
+If `analysis.js` is missing, blank the body only — the download still belongs
+there, so the panel itself stays.
 
 **Controls.** Close (`×`) top right; `‹` `›` at the vertical edges. Keyboard:
 `Esc`, `←`, `→`. Touch: horizontal swipe over 48px steps frames. Clicking the

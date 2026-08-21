@@ -438,7 +438,7 @@ img { display: block; max-width: 100%; }
   border-top: 1px solid var(--line); padding-top: 16px;
 }
 
-/* ---------- Panel foot: save this frame, then reach the studio ---------- */
+/* ---------- Panel foot: save this frame ---------- */
 .lbp-actions {
   flex: none; margin-top: 18px; padding-top: 16px;
   border-top: 1px solid var(--line-2);
@@ -457,18 +457,6 @@ img { display: block; max-width: 100%; }
 .lb-download.saved { background: var(--grad); border-color: transparent; color: #fff; }
 .lb-download.saved svg { color: #fff; }
 
-.lbp-social { display: flex; gap: 8px; }
-.lbp-soc {
-  flex: 1 1 0; height: 38px;
-  display: grid; place-items: center;
-  border: 1px solid var(--line-2); color: var(--muted);
-  transition: color .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease);
-}
-.lbp-soc:hover { color: #fff; }
-/* each platform lights up in its own colour on hover */
-.lbp-soc:nth-child(1):hover { border-color: #ec4899; background: rgba(236,72,153,.14); }
-.lbp-soc:nth-child(2):hover { border-color: #4a9df0; background: rgba(74,157,240,.14); }
-.lbp-soc:nth-child(3):hover { border-color: #f26d5b; background: rgba(242,109,91,.14); }
 
 /* Not enough width to sit beside the photograph — stack it underneath,
    and let the pair scroll as one. */
