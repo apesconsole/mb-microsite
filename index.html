@@ -110,12 +110,6 @@
 
   <!-- ===== Lightbox ===== -->
   <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
-    <a class="lb-download" id="lbDownload" href="" download aria-label="Download this photo" title="Download this photo">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5" />
-        <path stroke-linecap="round" stroke-linejoin="round" d="M4 17v2.5A1.5 1.5 0 005.5 21h13a1.5 1.5 0 001.5-1.5V17" />
-      </svg>
-    </a>
     <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
     <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">&#8249;</button>
 
@@ -125,7 +119,24 @@
         <figcaption class="lb-caption" id="lbCaption"></figcaption>
       </figure>
 
-      <aside class="lb-panel" id="lbPanel" aria-label="Colour analysis of this photograph"></aside>
+      <aside class="lb-panel" id="lbPanel" aria-label="Colour analysis of this photograph">
+        <!-- filled by renderAnalysis() from analysis.js -->
+        <div class="lbp-body" id="lbPanelBody"></div>
+
+        <!-- persistent foot of the panel: save this frame, then reach the studio -->
+        <div class="lbp-actions">
+          <a class="lb-download" id="lbDownload" href="" download
+             aria-label="Download this photo" title="Download this photo">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 17v2.5A1.5 1.5 0 005.5 21h13a1.5 1.5 0 001.5-1.5V17" />
+            </svg>
+            <span>Download this photo</span>
+          </a>
+
+          <nav class="lbp-social" id="lbSocial" aria-label="Ape&rsquo;s Console elsewhere"></nav>
+        </div>
+      </aside>
     </div>
 
     <button class="lb-nav lb-next" id="lbNext" aria-label="Next">&#8250;</button>

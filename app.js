@@ -15,6 +15,30 @@ const ASSET = "images";
 const SET_NAME = "An Evening to Remember";   // shown in captions / alt text
 const SET_SLUG = "An-Evening-to-Remember";   // used to name downloaded files
 
+/* Where the icons at the foot of the analysis panel point. Edit the urls
+   here and nowhere else. `icon` is an SVG path set, drawn at 24x24. */
+const SOCIAL = [
+  {
+    name: "Instagram",
+    url: "https://instagram.com/apesconsole",
+    icon: '<rect x="3" y="3" width="18" height="18" rx="5" />' +
+          '<circle cx="12" cy="12" r="4" />' +
+          '<circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" />',
+  },
+  {
+    name: "Facebook",
+    url: "https://facebook.com/apesconsole",
+    icon: '<path d="M14.5 8.5h2.2V5.6h-2.4c-2.2 0-3.6 1.4-3.6 3.6v1.6H8.6v2.9h2.1V21h3v-7.3h2.2l.4-2.9h-2.6V9.6c0-.7.3-1.1.8-1.1z" ' +
+          'fill="currentColor" stroke="none" />',
+  },
+  {
+    name: "Email",
+    url: "mailto:apesconsole@gmail.com",
+    icon: '<rect x="3" y="5" width="18" height="14" rx="2" />' +
+          '<path d="M3.5 7l8.5 6 8.5-6" />',
+  },
+];
+
 /* One entry per folder under ./images/ — label is what the tab shows,
    dir is the folder on disk, files are its frames in display order. */
 const GALLERY = [
@@ -246,6 +270,27 @@ const lbImg      = document.getElementById("lbImg");
 const lbCaption  = document.getElementById("lbCaption");
 const lbDownload = document.getElementById("lbDownload");
 const lbPanel    = document.getElementById("lbPanel");
+const lbPanelBody = document.getElementById("lbPanelBody");
+const lbSocial   = document.getElementById("lbSocial");
+
+/* The social row is static — build it once. External profiles open in a new
+   tab; the mailto must not, or it leaves a blank tab behind. */
+(function () {
+  if (!lbSocial) return;
+  lbSocial.innerHTML = SOCIAL.map(function (s) {
+    const external = s.url.indexOf("mailto:") !== 0;
+    return '<a class="lbp-soc" href="' + s.url + '"' +
+      (external ? ' target="_blank" rel="noopener noreferrer"' : "") +
+      ' aria-label="' + s.name + '" title="' + s.name + '">' +
+      '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" ' +
+      'stroke="currentColor" stroke-width="1.7" stroke-linecap="round" ' +
+      'stroke-linejoin="round" aria-hidden="true">' + s.icon + "</svg></a>";
+  }).join("");
+
+  /* clicks here must not reach the backdrop, which would close the lightbox
+     out from under the visitor as they leave */
+  lbSocial.addEventListener("click", function (e) { e.stopPropagation(); });
+})();
 
 function openLightbox(idx) {
   currentIndex = idx;
@@ -290,8 +335,10 @@ function renderAnalysis() {
   const data = window.IMAGE_ANALYSIS || {};
   const a = data[currentCat.items[currentIndex].key];
 
-  if (!a) { lbPanel.hidden = true; lbPanel.innerHTML = ""; return; }
-  lbPanel.hidden = false;
+  /* Only the reading is data-driven. If it is missing, blank that part but
+     keep the panel — the download and the social links still belong here. */
+  if (!a) { lbPanelBody.innerHTML = ""; lbPanelBody.hidden = true; return; }
+  lbPanelBody.hidden = false;
 
   const swatches = a.palette.map(function (p) {
     return '<div class="lbp-sw">' +
@@ -320,7 +367,7 @@ function renderAnalysis() {
     '<span class="lbp-val">' + esc(a.temperature.label) + "</span></div>" +
     bar + "</div>";
 
-  lbPanel.innerHTML =
+  lbPanelBody.innerHTML =
     '<p class="lbp-eyebrow">Colour reading</p>' +
     '<h3 class="lbp-title">' + esc(a.scheme.label) + "</h3>" +
     '<p class="lbp-detail">' + esc(a.scheme.detail) + "</p>" +
@@ -333,7 +380,7 @@ function renderAnalysis() {
     "</div>" +
     '<p class="lbp-note">' + esc(a.note) + "</p>";
 
-  lbPanel.scrollTop = 0;
+  lbPanelBody.scrollTop = 0;   // a new frame starts the reading from the top
 }
 
 function updateLightbox() {

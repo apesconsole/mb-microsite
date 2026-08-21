@@ -372,7 +372,8 @@ img { display: block; max-width: 100%; }
 
 /* ---------- Colour reading panel ---------- */
 .lb-panel {
-  flex: none; width: 320px; max-height: 82vh; overflow-y: auto;
+  flex: none; width: 320px; max-height: 82vh;
+  display: flex; flex-direction: column;
   padding: 24px 22px; text-align: left;
   background: rgba(255, 255, 255, .035);
   border: 1px solid var(--line-2);
@@ -383,6 +384,12 @@ img { display: block; max-width: 100%; }
 .lb-panel[hidden] { display: none; }
 .lb-panel::-webkit-scrollbar { width: 6px; }
 .lb-panel::-webkit-scrollbar-thumb { background: var(--line-2); }
+
+/* only the reading scrolls — the actions stay pinned to the foot */
+.lbp-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
+.lbp-body[hidden] { display: none; }
+.lbp-body::-webkit-scrollbar { width: 6px; }
+.lbp-body::-webkit-scrollbar-thumb { background: var(--line-2); }
 
 .lbp-eyebrow {
   font-family: var(--mono); font-size: .66rem; letter-spacing: .22em;
@@ -431,6 +438,38 @@ img { display: block; max-width: 100%; }
   border-top: 1px solid var(--line); padding-top: 16px;
 }
 
+/* ---------- Panel foot: save this frame, then reach the studio ---------- */
+.lbp-actions {
+  flex: none; margin-top: 18px; padding-top: 16px;
+  border-top: 1px solid var(--line-2);
+  display: flex; flex-direction: column; gap: 12px;
+}
+.lb-download {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  font-family: var(--mono); font-size: .76rem; letter-spacing: .02em;
+  color: var(--text); white-space: nowrap; cursor: pointer;
+  padding: 11px 14px; border: 1px solid var(--line-2);
+  transition: color .3s var(--ease), border-color .3s var(--ease), background .3s var(--ease);
+}
+.lb-download:hover { color: #fff; border-color: transparent; background: var(--grad-soft); }
+.lb-download svg { flex: none; color: #b476f0; }
+/* brief confirmation flash after the file is handed to the browser */
+.lb-download.saved { background: var(--grad); border-color: transparent; color: #fff; }
+.lb-download.saved svg { color: #fff; }
+
+.lbp-social { display: flex; gap: 8px; }
+.lbp-soc {
+  flex: 1 1 0; height: 38px;
+  display: grid; place-items: center;
+  border: 1px solid var(--line-2); color: var(--muted);
+  transition: color .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease);
+}
+.lbp-soc:hover { color: #fff; }
+/* each platform lights up in its own colour on hover */
+.lbp-soc:nth-child(1):hover { border-color: #ec4899; background: rgba(236,72,153,.14); }
+.lbp-soc:nth-child(2):hover { border-color: #4a9df0; background: rgba(74,157,240,.14); }
+.lbp-soc:nth-child(3):hover { border-color: #f26d5b; background: rgba(242,109,91,.14); }
+
 /* Not enough width to sit beside the photograph — stack it underneath,
    and let the pair scroll as one. */
 @media (max-width: 1020px) {
@@ -450,21 +489,17 @@ img { display: block; max-width: 100%; }
   }
   .lightbox.open .lb-panel { transform: none; }
 }
-.lb-close, .lb-nav, .lb-download {
+.lb-close, .lb-nav {
   position: absolute; z-index: 2; background: rgba(255,255,255,.06); border: 1px solid var(--line-2);
   color: var(--text); cursor: pointer; border-radius: 0;
   display: grid; place-items: center; transition: background .3s var(--ease), transform .2s var(--ease);
 }
 .lb-close { top: 22px; right: 24px; width: 46px; height: 46px; font-size: 1.6rem; line-height: 1; }
-.lb-download { top: 22px; right: 82px; width: 46px; height: 46px; }
 .lb-nav { top: 50%; transform: translateY(-50%); width: 54px; height: 54px; font-size: 2rem; line-height: 1; }
 .lb-prev { left: 20px; } .lb-next { right: 20px; }
-.lb-close:hover, .lb-nav:hover, .lb-download:hover { background: rgba(255,255,255,.16); }
+.lb-close:hover, .lb-nav:hover { background: rgba(255,255,255,.16); }
 .lb-nav:hover { transform: translateY(-50%) scale(1.06); }
-.lb-download:hover { color: #fff; border-color: #b476f0; }
-.lb-download svg { display: block; }
-/* brief confirmation flash after the file is handed to the browser */
-.lb-download.saved { background: var(--grad); border-color: transparent; color: #fff; }
+/* the download control now lives at the foot of the analysis panel */
 
 /* ---------- Responsive header ---------- */
 @media (max-width: 800px) {
@@ -501,7 +536,6 @@ img { display: block; max-width: 100%; }
 
   .outro-link { padding: 12px 18px; }
   .lb-close { top: 12px; right: 12px; width: 40px; height: 40px; font-size: 1.4rem; }
-  .lb-download { top: 12px; right: 60px; width: 40px; height: 40px; }
   .lb-nav { width: 42px; height: 42px; font-size: 1.5rem; }
   .lb-prev { left: 10px; } .lb-next { right: 10px; }
 }

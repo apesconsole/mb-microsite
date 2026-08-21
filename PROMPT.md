@@ -226,17 +226,33 @@ Panel contents, top to bottom:
 4. Four meters: **Temperature** (a warm|cool *split* bar, orange vs blue —
    fall back to a flat neutral bar when a frame has no chroma at all),
    **Saturation**, **Contrast**, **Tonal key** (gradient fill, width = value)
-5. A two-or-three sentence prose reading above a hairline rule
+5. A two-or-three sentence prose reading
 
-If `analysis.js` is missing, hide the panel and fall back to the photo alone.
+Split the panel into a **scrolling body** and a **pinned foot**: make the panel
+a flex column, give the body `flex: 1 1 auto; min-height: 0; overflow-y: auto`
+and the foot `flex: none`. The reading scrolls; the foot never does. Reset the
+*body's* scrollTop on each frame — the panel itself no longer scrolls.
 
-**Controls.** Close (`×`) top right; a download icon immediately left of it;
-`‹` `›` at the vertical edges. Keyboard: `Esc`, `←`, `→`. Touch: horizontal
-swipe over 48px steps frames. Clicking the backdrop closes; clicking any
-control must not.
+The foot holds, above a hairline rule:
 
-**Download.** A plain same-origin `<a download>` — let the browser save the
-file natively, no blob copies. Name it `<SET_SLUG>-<Category>-<NN>.<ext>`, with
+- a full-width **Download this photo** button (see below), then
+- a row of three equal icon links — **Instagram**, **Facebook**, **email** —
+  driven by a single `SOCIAL` array of `{name, url, icon}` at the top of
+  `app.js` so the URLs live in exactly one place. Each lights up in its own
+  colour on hover. External profiles get `target="_blank"` +
+  `rel="noopener noreferrer"`; the `mailto:` must **not**, or it strands the
+  visitor on a blank tab. Stop clicks in this row from reaching the backdrop.
+
+If `analysis.js` is missing, blank the body only — the download and the social
+links still belong there, so the panel itself stays.
+
+**Controls.** Close (`×`) top right; `‹` `›` at the vertical edges. Keyboard:
+`Esc`, `←`, `→`. Touch: horizontal swipe over 48px steps frames. Clicking the
+backdrop closes; clicking any control must not. The download lives in the
+panel foot, not floating over the photograph.
+
+**Download.** A plain same-origin `<a download>` at the foot of the panel — let
+the browser save the file natively, no blob copies. Name it `<SET_SLUG>-<Category>-<NN>.<ext>`, with
 the extension taken from the real file. Update `href` and `download` on every
 navigation. Stop the click from reaching the backdrop, and flash the button
 with the gradient for 1.2s so the visitor gets feedback.
