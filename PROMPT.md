@@ -340,18 +340,33 @@ honestly as Achromatic with a grey ramp, its tonal metrics carrying the reading.
 
 ## 10. Footer
 
-One slim strip, bordered along the top, holding two things:
+One slim strip, bordered along the top. **Nothing in it is a button** — no
+boxes, no fills. Everything reads as a link: emphasis comes from an underline
+drawn in from the left on hover (a pseudo-element scaled on `transform`, not a
+`text-decoration`), plus a small arrow that nudges.
 
-- **Left** — a bordered card: `MORE WORK AT` in dim mono, then
-  `www.apesconsole.com` and a `↗`, opening in a new tab.
-- **Right** — a **Developer** button that opens a small popover *upward*
-  (the footer is the last thing on the page) containing a `BUILD PROMPT`
-  heading, a download link for this brief, and a one-line note.
+- **Left** — `MORE WORK AT` in dim uppercase mono, then `www.apesconsole.com`
+  and a `↗`, opening in a new tab.
+- **Right** — a **Developer** text link (styled the same, with a caret that
+  flips) opening a small popover *upward*, since the footer is the last thing
+  on the page.
+
+The popover is a `DEVELOPER` heading over one row per resource — a dim
+uppercase key on the left, a link on the right, hairline rules between:
+
+| key | link |
+| --- | --- |
+| Build prompt | Download markdown `↓` (the brief from section 1) |
+| Source | GitHub `↗` — the repository |
+| AI agent | Claude `↗` — https://claude.com/claude-code |
+
+Close with a one-line note crediting the build. External links get
+`target="_blank"` + `rel="noopener noreferrer"`; the download stays in-tab.
 
 Menu behaviour: toggle on click, close on outside click and on `Escape`
 (returning focus to the button), and stop clicks inside the popover from
 bubbling out and closing it before the browser takes the download. Drive
-`aria-expanded` on the button and rotate its caret.
+`aria-expanded` on the button.
 
 For the show/hide, transition `opacity` and `transform`, and switch
 `visibility` on a **delay** — `visibility 0s linear .28s` closed, `0s linear 0s`

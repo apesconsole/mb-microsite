@@ -142,10 +142,10 @@
 
   <!-- ===== Footer ===== -->
   <footer class="site-footer">
-    <a href="https://www.apesconsole.com" target="_blank" rel="noopener noreferrer" class="outro-link">
-      <span class="outro-label">More work at</span>
-      <span class="outro-url">www.apesconsole.com</span>
-      <span class="outro-arrow" aria-hidden="true">&#8599;</span>
+    <a href="https://www.apesconsole.com" target="_blank" rel="noopener noreferrer" class="foot-link">
+      <span class="foot-dim">More work at</span>
+      <span class="foot-strong">www.apesconsole.com</span>
+      <span class="foot-arrow" aria-hidden="true">&#8599;</span>
     </a>
 
     <div class="dev-menu">
@@ -156,15 +156,33 @@
       </button>
 
       <div class="dev-pop" id="devPop" role="group" aria-label="Developer resources">
-        <p class="dev-pop-head">Build prompt</p>
-        <a class="prompt-dl" href="PROMPT.md" download="an-evening-to-remember-build-prompt.md">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5" />
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 17v2.5A1.5 1.5 0 005.5 21h13a1.5 1.5 0 001.5-1.5V17" />
-          </svg>
-          <span>Download the build prompt</span>
-        </a>
-        <p class="dev-pop-note">The complete brief this site was built from &mdash; markdown.</p>
+        <p class="dev-pop-head">Developer</p>
+
+        <div class="dev-row">
+          <span class="dev-key">Build prompt</span>
+          <a class="dev-val" href="PROMPT.md" download="an-evening-to-remember-build-prompt.md">
+            Download markdown <span class="dev-arrow dev-arrow-down" aria-hidden="true">&#8595;</span>
+          </a>
+        </div>
+
+        <div class="dev-row">
+          <span class="dev-key">Source</span>
+          <a class="dev-val" href="https://github.com/apesconsole/mb-microsite"
+             target="_blank" rel="noopener noreferrer">
+            GitHub <span class="dev-arrow" aria-hidden="true">&#8599;</span>
+          </a>
+        </div>
+
+        <div class="dev-row">
+          <span class="dev-key">AI agent</span>
+          <a class="dev-val" href="https://claude.com/claude-code"
+             target="_blank" rel="noopener noreferrer">
+            Claude <span class="dev-arrow" aria-hidden="true">&#8599;</span>
+          </a>
+        </div>
+
+        <p class="dev-pop-note">Built with Claude from the brief above &mdash; the prompt
+          reproduces this site from scratch.</p>
       </div>
     </div>
   </footer>

@@ -319,19 +319,6 @@ img { display: block; max-width: 100%; }
 }
 .tile:hover .tile-num { opacity: .9; transform: none; }
 
-/* ---------- "More work at" link (lives in the footer) ---------- */
-.outro-link {
-  display: inline-flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
-  justify-content: center; text-align: center;
-  font-family: var(--mono); letter-spacing: .06em;
-  padding: 14px 26px; border: 1px solid var(--line-2);
-  transition: border-color .3s var(--ease), background .3s var(--ease), transform .3s var(--ease);
-}
-.outro-link:hover { border-color: transparent; background: var(--grad-soft); transform: translateY(-2px); }
-.outro-label { color: var(--faint); font-size: .78rem; text-transform: uppercase; }
-.outro-url { color: var(--text); font-size: .95rem; }
-.outro-arrow { color: #b476f0; transition: transform .3s var(--ease); display: inline-block; }
-.outro-link:hover .outro-arrow { transform: translate(3px, -3px); }
 
 /* ---------- Lightbox ---------- */
 .lightbox {
@@ -522,7 +509,6 @@ img { display: block; max-width: 100%; }
   .filters { gap: 8px; margin-bottom: 30px; }
   .filter-pill { padding: 8px 15px; font-size: .82rem; }
 
-  .outro-link { padding: 12px 18px; }
   .lb-close { top: 12px; right: 12px; width: 40px; height: 40px; font-size: 1.4rem; }
   .lb-nav { width: 42px; height: 42px; font-size: 1.5rem; }
   .lb-prev { left: 10px; } .lb-next { right: 10px; }
@@ -550,33 +536,57 @@ img { display: block; max-width: 100%; }
   .tile { opacity: 1; transform: none; }
 }
 
-/* ---------- Footer ---------- */
+/* ---------- Footer ----------
+   Everything here reads as a link, not a button: no boxes, no fills.
+   Emphasis comes from an underline that draws in on hover. */
 .site-footer {
   border-top: 1px solid var(--line);
   background: var(--bg);
   padding: 26px 28px;
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-  gap: 16px;
+  gap: 16px 28px;
 }
 
-/* Developer menu — a small popover holding developer-facing links */
+/* the underline is a pseudo-element so it can animate from the left */
+.foot-link, .dev-toggle, .dev-val {
+  position: relative; background: none; border: 0; padding: 0;
+  font-family: var(--mono); cursor: pointer;
+}
+.foot-link::after, .dev-toggle::after, .dev-val::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 1px;
+  background: currentColor; opacity: .28;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .32s var(--ease), opacity .32s var(--ease);
+}
+.foot-link:hover::after, .dev-toggle:hover::after,
+.dev-toggle[aria-expanded="true"]::after, .dev-val:hover::after {
+  transform: scaleX(1); opacity: .55;
+}
+
+.foot-link {
+  display: inline-flex; align-items: baseline; gap: 9px; flex-wrap: wrap;
+  font-size: .84rem; letter-spacing: .05em; color: var(--text);
+}
+.foot-dim { color: var(--faint); font-size: .74rem; text-transform: uppercase; letter-spacing: .16em; }
+.foot-strong { color: var(--text); }
+.foot-arrow { color: #b476f0; display: inline-block; transition: transform .3s var(--ease); }
+.foot-link:hover .foot-arrow { transform: translate(3px, -3px); }
+
+/* Developer menu */
 .dev-menu { position: relative; }
 .dev-toggle {
-  display: inline-flex; align-items: center; gap: 9px;
-  font-family: var(--mono); font-size: .8rem; letter-spacing: .06em;
-  color: var(--muted); background: transparent; cursor: pointer;
-  padding: 11px 18px; border: 1px solid var(--line-2); border-radius: 0;
-  transition: color .3s var(--ease), border-color .3s var(--ease), background .3s var(--ease);
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: .82rem; letter-spacing: .06em; color: var(--muted);
+  transition: color .3s var(--ease);
 }
-.dev-toggle:hover,
-.dev-toggle[aria-expanded="true"] { color: var(--text); border-color: #b476f0; background: rgba(168,85,247,.12); }
+.dev-toggle:hover, .dev-toggle[aria-expanded="true"] { color: var(--text); }
 .dev-caret { font-size: .7rem; transition: transform .3s var(--ease); }
 .dev-toggle[aria-expanded="true"] .dev-caret { transform: rotate(180deg); }
 
 /* opens upward — the footer is the last thing on the page */
 .dev-pop {
-  position: absolute; right: 0; bottom: calc(100% + 10px); z-index: 110;
-  width: 318px; padding: 18px;
+  position: absolute; right: 0; bottom: calc(100% + 12px); z-index: 110;
+  width: 306px; padding: 18px 20px;
   background: var(--bg-2); border: 1px solid var(--line-2);
   box-shadow: 0 22px 50px rgba(0,0,0,.55);
   opacity: 0; visibility: hidden; transform: translateY(8px);
@@ -594,25 +604,38 @@ img { display: block; max-width: 100%; }
 }
 .dev-pop-head {
   font-family: var(--mono); font-size: .66rem; letter-spacing: .22em;
-  text-transform: uppercase; color: #b476f0; margin-bottom: 12px;
+  text-transform: uppercase; color: #b476f0; margin-bottom: 14px;
 }
+
+/* one label/link pair per row */
+.dev-row {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+  padding: 9px 0; border-top: 1px solid var(--line);
+}
+.dev-row:first-of-type { border-top: 0; padding-top: 0; }
+.dev-key {
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--faint); white-space: nowrap;
+}
+.dev-val {
+  font-size: .8rem; letter-spacing: .03em; color: var(--text);
+  white-space: nowrap; transition: color .3s var(--ease);
+}
+.dev-val:hover { color: #fff; }
+.dev-arrow { color: #b476f0; display: inline-block; transition: transform .3s var(--ease); }
+.dev-val:hover .dev-arrow { transform: translate(3px, -3px); }
+.dev-val:hover .dev-arrow-down { transform: translateY(3px); }
+
 .dev-pop-note {
-  font-size: .74rem; line-height: 1.55; color: var(--faint); margin-top: 11px;
+  font-size: .72rem; line-height: 1.6; color: var(--faint);
+  margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line);
 }
-.prompt-dl {
-  display: inline-flex; align-items: center; gap: 10px; width: 100%;
-  font-family: var(--mono); font-size: .76rem; letter-spacing: .02em;
-  color: var(--text); white-space: nowrap;
-  padding: 11px 13px; border: 1px solid var(--line-2);
-  transition: border-color .3s var(--ease), background .3s var(--ease);
-}
-.prompt-dl:hover { border-color: transparent; background: var(--grad-soft); }
-.prompt-dl svg { flex: none; color: #b476f0; }
 
 @media (max-width: 640px) {
-  .site-footer { padding: 20px; justify-content: center; gap: 14px; }
+  .site-footer { padding: 22px 20px; justify-content: center; gap: 14px; text-align: center; }
+  .foot-link { justify-content: center; }
   .dev-menu { width: 100%; display: flex; justify-content: center; }
-  .dev-pop { right: 50%; transform: translate(50%, 8px); width: min(92vw, 318px); }
+  .dev-pop { right: 50%; transform: translate(50%, 8px); width: min(92vw, 306px); }
   .dev-pop.open { transform: translate(50%, 0); }
 }
 
