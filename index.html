@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>An Evening to Remember &mdash; A Gallery by Ape&rsquo;s Console</title>
+  <meta name="description" content="An Evening to Remember — faces, light, and a night that ran long. Photographed by Soumitra Nath for Ape's Console." />
+  <meta name="author" content="Soumitra Nath" />
+  <meta name="theme-color" content="#0b0b0d" />
+
+  <!-- Always (re)load at the very top, never restore the previous scroll position -->
+  <script>if ("scrollRestoration" in history) history.scrollRestoration = "manual";</script>
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Ape's Console" />
+  <meta property="og:title" content="An Evening to Remember — A Gallery by Ape's Console" />
+  <meta property="og:description" content="Faces, light, and a night that ran long. Photographed by Soumitra Nath for Ape's Console." />
+  <meta property="og:image" content="images/portraits/P1400661.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ===== Progress bar ===== -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a href="#top" class="brand">
+        <span class="brand-badge">A</span>
+        <span class="brand-name">APESCONSOLE</span>
+      </a>
+
+      <nav class="nav-desktop" aria-label="Primary">
+        <a href="#gallery" class="nav-link"><span class="nav-ico" aria-hidden="true">&#9672;</span> Gallery</a>
+        <a href="https://www.apesconsole.com" target="_blank" rel="noopener noreferrer" class="nav-link nav-out">
+          <span class="nav-ico" aria-hidden="true">&#9737;</span> apesconsole.com <span class="nav-arrow" aria-hidden="true">&#8599;</span>
+        </a>
+      </nav>
+
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="nav-mobile" id="navMobile">
+      <a href="#gallery" class="nav-link"><span class="nav-ico" aria-hidden="true">&#9672;</span> Gallery</a>
+      <a href="https://www.apesconsole.com" target="_blank" rel="noopener noreferrer" class="nav-link nav-out">
+        <span class="nav-ico" aria-hidden="true">&#9737;</span> apesconsole.com <span class="nav-arrow" aria-hidden="true">&#8599;</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- ===== Hero / Banner ===== -->
+  <section class="hero" id="top">
+    <div class="hero-media" aria-hidden="true">
+      <div class="hero-strip" id="heroStrip"></div>
+      <div class="hero-sheen" id="heroSheen"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-reveal" id="heroReveal" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <p class="hero-kicker">// a gallery &nbsp;&middot;&nbsp; by ape&rsquo;s console</p>
+      <h1 class="hero-title" id="heroTitle"><span class="hero-seg">An</span> <span class="hero-seg">Evening&nbsp;to</span> <span class="hero-seg">Remember</span></h1>
+      <p class="hero-sub">Faces, light, and a night that ran long.</p>
+      <div class="hero-actions">
+        <a href="#gallery" class="hero-cta">Enter the gallery <span aria-hidden="true">&rarr;</span></a>
+        <a href="https://www.apesconsole.com" target="_blank" rel="noopener noreferrer" class="hero-link">
+          www.apesconsole.com <span aria-hidden="true">&#8599;</span>
+        </a>
+      </div>
+    </div>
+
+    <a href="#gallery" class="hero-scroll" aria-label="Scroll to gallery">
+      <span class="hero-scroll-dot"></span>
+    </a>
+
+    <div class="hero-controls">
+      <button id="heroShuffle" class="hero-ctrl" type="button">&#10534; Shuffle frames</button>
+      <button id="heroMotion" class="hero-ctrl is-on" type="button">&#9680; Motion: on</button>
+    </div>
+  </section>
+
+  <!-- ===== Gallery ===== -->
+  <section id="gallery" class="section gallery">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">01 / Selected work</p>
+        <h2 class="section-title">Gallery</h2>
+      </div>
+      <div class="showing">Showing&nbsp; <span class="showing-cat" id="showingCat">Portraits</span>
+        <span class="showing-count" id="showingCount"></span>
+      </div>
+    </div>
+
+    <div class="filters" id="filters" role="tablist" aria-label="Gallery categories"></div>
+
+    <div class="masonry" id="masonry"></div>
+
+    <div class="gallery-outro">
+      <a href="https://www.apesconsole.com" target="_blank" rel="noopener noreferrer" class="outro-link">
+        <span class="outro-label">More work at</span>
+        <span class="outro-url">www.apesconsole.com</span>
+        <span class="outro-arrow" aria-hidden="true">&#8599;</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== Lightbox ===== -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+    <a class="lb-download" id="lbDownload" href="" download aria-label="Download this photo" title="Download this photo">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5" />
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 17v2.5A1.5 1.5 0 005.5 21h13a1.5 1.5 0 001.5-1.5V17" />
+      </svg>
+    </a>
+    <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">&#8249;</button>
+
+    <div class="lb-stage">
+      <figure class="lb-figure">
+        <img class="lb-img" id="lbImg" src="" alt="" />
+        <figcaption class="lb-caption" id="lbCaption"></figcaption>
+      </figure>
+
+      <aside class="lb-panel" id="lbPanel" aria-label="Colour analysis of this photograph"></aside>
+    </div>
+
+    <button class="lb-nav lb-next" id="lbNext" aria-label="Next">&#8250;</button>
+  </div>
+
+  <script src="analysis.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
